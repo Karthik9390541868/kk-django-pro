@@ -1,0 +1,37 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<h2>Manage Bookings</h2>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>User</th>
+        <th>Package</th>
+        <th>Date</th>
+        <th>Travellers</th>
+        <th>Paid</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    {% for booking in bookings %}
+    <tr>
+        <td>{{ booking.user.username }}</td>
+        <td>{{ booking.package.name }}</td>
+        <td>{{ booking.travel_date }}</td>
+        <td>{{ booking.travellers }}</td>
+        <td>{{ booking.is_paid }}</td>
+        <td>{{ booking.status }}</td>
+        <td>
+            {% if booking.status == 'PENDING' %}
+                <a href="/booking-status/{{ booking.id }}/APPROVED/">Approve</a> |
+                <a href="/booking-status/{{ booking.id }}/CANCELLED/">Cancel</a>
+            {% else %}
+                —
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
